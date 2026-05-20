@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+  "version": "v1.5",
+  "name": "HealthPulse${{APP_NAME_SUFFIX}}",
+  "description": "An AI agent that retrieves Contoso Health Services performance data and visualises it as charts. Ask about ambulance response times, A&E waiting times, bed occupancy, and regional health summaries.",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Ambulance Wait Times",
+      "text": "What are the current ambulance wait times across all regions?"
+    },
+    {
+      "title": "Ambulance Response Chart",
+      "text": "Show me a bar chart comparing Category 1 and Category 2 ambulance response times across all Contoso Health regions for the past week. Highlight the national targets with reference lines."
+    },
+    {
+      "title": "A&E Performance Trends",
+      "text": "Get the weekly A&E waiting times for London and show me a line chart of the 4-hour target performance percentage over the past 8 weeks."
+    },
+    {
+      "title": "Bed Occupancy Heatmap",
+      "text": "Show me bed occupancy rates for all regions and create a heatmap showing general, critical care, and maternity bed occupancy by trust."
+    },
+    {
+      "title": "Regional Health Dashboard",
+      "text": "Give me the full regional health summary for North West and create a multi-panel chart showing ambulance times, A&E performance, and bed occupancy trends over 8 weeks."
+    },
+    {
+      "title": "Critical Care Alert",
+      "text": "Which regions have critical care bed occupancy above 90%? Show me a chart highlighting the trusts at risk."
+    }
+  ],
+  "capabilities": [
+    {
+      "name": "CodeInterpreter"
+    }
+  ],
+  "actions": [
+    {
+      "id": "healthPulsePlugin",
+      "file": "ai-plugin.json"
+    }
+  ]
+}

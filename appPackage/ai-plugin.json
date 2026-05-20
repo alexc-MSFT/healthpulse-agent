@@ -1,0 +1,96 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "HealthPulse",
+    "description_for_human": "Contoso Health Services data - ambulance wait times, A&E performance, bed occupancy",
+    "contact_email": "demo@contoso.com",
+    "namespace": "healthpulse",
+    "functions": [
+        {
+            "name": "get_ambulance_wait_times",
+            "description": "Get ambulance response times by category (Category 1-4) for Contoso Health regions. Returns average response times in minutes over a specified period.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "region": {
+                        "type": "string",
+                        "description": "Contoso Health region name (e.g. 'London', 'North West', 'South East'). Leave empty for all regions."
+                    },
+                    "period": {
+                        "type": "string",
+                        "enum": ["daily", "weekly", "monthly"],
+                        "description": "Time period for aggregation. Defaults to 'weekly'."
+                    }
+                }
+            }
+        },
+        {
+            "name": "get_ae_waiting_times",
+            "description": "Get Accident & Emergency department waiting times and patient throughput statistics. Returns data on 4-hour target performance, median wait times, and patient volumes.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "region": {
+                        "type": "string",
+                        "description": "Contoso Health region name. Leave empty for all regions."
+                    },
+                    "period": {
+                        "type": "string",
+                        "enum": ["daily", "weekly", "monthly"],
+                        "description": "Time period for aggregation. Defaults to 'weekly'."
+                    }
+                }
+            }
+        },
+        {
+            "name": "get_bed_occupancy",
+            "description": "Get hospital bed occupancy rates across Contoso Health trusts. Returns percentage occupancy, available beds, and critical care utilisation.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "region": {
+                        "type": "string",
+                        "description": "Contoso Health region name. Leave empty for all regions."
+                    },
+                    "bed_type": {
+                        "type": "string",
+                        "enum": ["general", "critical_care", "maternity", "all"],
+                        "description": "Type of beds to report on. Defaults to 'all'."
+                    }
+                }
+            }
+        },
+        {
+            "name": "get_regional_health_summary",
+            "description": "Get a comprehensive health performance summary for a specific Contoso Health region, including ambulance times, A&E performance, bed occupancy, and trend indicators. Ideal for generating dashboard charts.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "region": {
+                        "type": "string",
+                        "description": "Contoso Health region name (e.g. 'London', 'North West', 'Yorkshire')"
+                    }
+                },
+                "required": ["region"]
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "spec": {
+                "url": "${{MCP_SERVER_URL}}",
+                "enable_dynamic_discovery": false
+            },
+            "run_for_functions": [
+                "get_ambulance_wait_times",
+                "get_ae_waiting_times",
+                "get_bed_occupancy",
+                "get_regional_health_summary"
+            ],
+             "auth": {
+                "type": "None"
+            }
+        }
+    ]
+}

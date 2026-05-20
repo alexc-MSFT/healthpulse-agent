@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.js.map
+__pycache__/
+*.pyc
+.env.dev.user
+.env.local
+appPackage/build/
