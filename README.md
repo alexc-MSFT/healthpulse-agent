@@ -22,7 +22,7 @@ This demonstrates the end-to-end pattern of:
 │         │                   │                      │  • get_ambulance_wait_times │
 │         ▼                   │                      │  • get_ae_waiting_times     │
 │   Generates matplotlib      │                      │  • get_bed_occupancy        │
-│   charts from data          │                      │  • get_regional_health_     │
+│   charts rendered as images │                      │  • get_regional_health_     │
 │                             │                      │    summary                 │
 └─────────────────────────────┘                      └────────────────────────────┘
 ```
@@ -34,7 +34,7 @@ This demonstrates the end-to-end pattern of:
 - **Python 3.10+** (for the MCP server)
 - **Azure DevTunnels CLI** (`devtunnel`) — [Install guide](https://learn.microsoft.com/en-us/azure/developer/dev-tunnels/get-started)
 - **VS Code** with the [M365 Agents Toolkit extension](https://marketplace.visualstudio.com/items?itemName=TeamsDevApp.ms-teams-vscode-extension)
-- **Microsoft 365 developer tenant** with Copilot license
+- **Microsoft 365 tenant** with the ability to sideload apps and a Copilot license
 
 ---
 
@@ -110,7 +110,7 @@ Copy the full MCP URL and update:
 
 The declarative agent is defined in `appPackage/` and uses two capabilities:
 
-1. **Code Interpreter** — generates Python charts (matplotlib) from data
+1. **Code Interpreter** — generates Python charts (matplotlib) which are rendered as images directly in the Microsoft 365 Copilot chat experience
 2. **RemoteMCPServer action** — connects to the HealthPulse MCP server via the `ai-plugin.json` runtime definition
 
 The `ai-plugin.json` declares all 4 MCP tools as functions and points the runtime at your DevTunnels URL:
